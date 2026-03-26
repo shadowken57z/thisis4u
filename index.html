@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
+    position: relative;
+    background: #ffffff;
+}
+
+/* BACKGROUND IMAGE LAYER */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("forget-me-not-horizontal.webp") no-repeat center/cover;
+    filter: blur(8px); /* ~20% blur */
+    opacity: 1;
+    z-index: -1;
+}
+
+/* screens */
+.screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: transform 0.8s ease;
+}
+
+#home { z-index: 2; }
+#cardScreen { transform: translateY(100%); z-index: 3; }
+.show-card #home { transform: translateY(-100%); }
+.show-card #cardScreen { transform: translateY(0); }
+
+/* UI */
+.hearts { font-size: 24px; margin-bottom: 30px; }
+
+.title-wrapper { display: flex; justify-content: center; width: 100%; }
+
+.title {
+    font-size: 48px;
+    color: #f079ea;
+    text-shadow: 4px 4px #000;
+    margin-bottom: 40px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 4px solid #000;
+    animation:
+        typing 2.5s steps(17) forwards,
+        blink 0.7s step-end 3,
+        hideCursor 0s 2.5s forwards;
+}
+
+@keyframes typing { from { width: 0 } to { width: 17ch; } }
+@keyframes blink { 50% { border-color: transparent; } }
+@keyframes hideCursor { to { border-right: none; } }
+
+.start-btn {
+    font-size: 14px;
+    padding: 15px 40px;
+    border-radius: 20px;
+    border: none;
+    background: #4c42e4;
+    box-shadow: 4px 4px #000;
+    cursor: pointer;
+}
+
+/* card */
+.card {
+    background: #86d4fc;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 8px 8px #0e0242;
+    max-width: 500px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* petals */
+.flower {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #ee930af8;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    animation: fall linear infinite;
+    animation-play-state: paused;
+    z-index: 1;
+}
+.show-card .flower { animation-play-state: running; }
+@keyframes fall { 0% { transform: translateY(-600px) rotate(45deg); } 100% { transform: translateY(110vh) rotate(45deg); } }
+
+/* BALLOONS */
+.balloons {
+    position: absolute;
+    bottom: 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    padding: 0 20px;
+    z-index: 1;
+}
+.balloon {
+    width: 40px;
+    height: 55px;
+    border-radius: 50%;
+    position: relative;
+    margin: auto;
+}
+.balloon:nth-child(5n+1) { background: #ff6b6b; }
+.balloon:nth-child(5n+2) { background: #6bcBff; }
+.balloon:nth-child(5n+3) { background: #ffd93d; }
+.balloon:nth-child(5n+4) { background: #6bff95; }
+.balloon:nth-child(5n+5) { background: #d96bff; }
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    background: #000;
+    left: 50%;
+    top: 55px;
+}
+@keyframes rise { from { transform: translateY(0); } to { transform: translateY(-120vh); } }
+.show-card .balloon { animation: rise 2s ease forwards; }
+
+</style>
+</head>
+
+<body>
+<audio id="bgMusic" preload="auto" loop autoplay>
+    <source src="Gopher Mound Fresh.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SCREEN 1 -->
+<div class="screen" id="home">
+    <div class="hearts">❤️ ❤️ ❤️ ❤️ ❤️</div>
+    <div class="title-wrapper"><div class="title">!HAPPY BIRTHDAY!</div></div>
+    <button class="start-btn" onclick="start()">💕(●'◡'●)💕</button>
+
+    <div class="balloons">
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+        <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+    </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen" id="cardScreen">
+    <div class="card">
+        <h3>Dear VY,</h3>
+        <p>
+            well, I forgot your birthday present!<br><br>
+            Happy Birthday<br>
+            I wish you get a lot of happiness, a lottt...<br>
+            Enjoy your day .. <br>
+            i Wish your good health and alot of good things .. <br>
+            i wish your wishes come true.
+        </p>
+        <p>— From meee hehehe</p>
+    </div>
+</div>
+
+<!-- petals -->
+<div class="flower" style="left:10%;animation-duration:10s;"></div>
+<div class="flower" style="left:30%;animation-duration:12s;"></div>
+<div class="flower" style="left:50%;animation-duration:9s;"></div>
+<div class="flower" style="left:70%;animation-duration:11s;"></div>
+<div class="flower" style="left:90%;animation-duration:13s;"></div>
+
+<script>
+function start() {
+    const music = document.getElementById("bgMusic");
+
+    if (music) {
+        music.currentTime = 0;
+        music.volume = 0.5;
+        music.play();
+    }
+
+    document.body.classList.add("show-card");
+}
+</script>
+
+</body>
+</html>
